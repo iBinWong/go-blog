@@ -9,6 +9,8 @@
 
 [查看](http://go-blog.cn "查看")
 
+#### 由于服务器资源限制，demo网站暂时无法访问
+
 > Go Blog 官网 http://go-blog.cn
 
 > 演示站点 http://leechan.online
