@@ -11,6 +11,8 @@
 
 #### 由于服务器资源限制，demo网站暂时无法访问
 
+> 临时预览 http://121.4.96.229:8088/
+
 > Go Blog 官网 http://go-blog.cn
 
 > 演示站点 http://leechan.online
