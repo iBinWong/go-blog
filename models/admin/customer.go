@@ -25,8 +25,12 @@ type Customer struct {
 	Review    int       `orm:"column(review);null" description:"评论"`
 	Like      int       `orm:"column(like);null" description:"点赞"`
 	Status    int       `orm:"column(status);null" description:"1可用，2禁用，0删除"`
+	Integral  int       `orm:"column(integral);null" description:"积分"`
+	Fans      int       `orm:"column(fans);null" description:"粉丝数量"`
+	Focus     int       `orm:"column(focus);null" description:"关注数量"`
 	Created   time.Time `orm:"column(created);type(datetime);null" description:"创建时间"`
 	Updated   time.Time `orm:"column(updated);type(datetime);null" description:"修改时间"`
+	IsFans    bool      `orm:"-"`
 }
 
 func (t *Customer) TableName() string {
@@ -142,7 +146,13 @@ func UpdateCustomerById(m *Customer) (err error) {
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
-		if num, err = o.Update(m); err == nil {
+		v.Nickname = m.Nickname
+		v.Username = m.Username
+		v.Phone = m.Phone
+		v.Image = m.Image
+		v.Signature = m.Signature
+		v.Url = m.Url
+		if num, err = o.Update(&v); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 		}
 	}
@@ -178,8 +188,92 @@ func CustomerLogin(username, password string) (*Customer, bool) {
 	qs = qs.SetCond(cond)
 	if err = qs.One(&customer); err == nil {
 		if customer.Password == password {
+
+			updateTime := customer.Updated.Local().Format("2006-01-02")
+			integral := customer.Integral
+
+			if updateTime != time.Now().Format("2006-01-02") {
+
+				// 如果是当天第一次登录则修改积分
+				integral += 10
+			}
+
+			o := orm.NewOrm()
+			v := Customer{Id: customer.Id}
+			// ascertain id exists in the database
+			if err = o.Read(&v); err == nil {
+				//var num int64
+				v.Updated = time.Now()
+				v.Integral = integral
+				if _, err = o.Update(&v); err != nil {
+					return nil, false
+				}
+			}
+
 			ok = true
 		}
 	}
 	return &customer, ok
+}
+
+func UpdateIntegral(uid, integral int) bool {
+	o := orm.NewOrm()
+	v := Customer{Id: uid}
+	// ascertain id exists in the database
+	if err := o.Read(&v); err == nil {
+		//var num int64
+		//v.Updated = time.Now()
+		v.Integral = v.Integral + integral
+		if _, err = o.Update(&v); err != nil {
+			return false
+		} else {
+			return true
+		}
+	} else {
+		return false
+	}
+}
+
+func SetFans(uid int, flag bool) bool {
+	o := orm.NewOrm()
+	v := Customer{Id: uid}
+	// ascertain id exists in the database
+	if err := o.Read(&v); err == nil {
+		//var num int64
+		//v.Updated = time.Now()
+		if flag == true {
+			v.Fans = v.Fans + 1
+		} else {
+			v.Fans = v.Fans - 1
+		}
+		if _, err = o.Update(&v); err != nil {
+			return false
+		} else {
+			return true
+		}
+	} else {
+		return false
+	}
+}
+
+func SetFocus(uid int, flag bool) bool {
+	o := orm.NewOrm()
+	v := Customer{Id: uid}
+	// ascertain id exists in the database
+	if err := o.Read(&v); err == nil {
+		//var num int64
+		//v.Updated = time.Now()
+		if flag == true {
+			v.Focus = v.Focus + 1
+		} else {
+			v.Focus = v.Focus - 1
+		}
+		if _, err = o.Update(&v); err != nil {
+			return false
+		} else {
+			return true
+		}
+	} else {
+		return false
+	}
 }

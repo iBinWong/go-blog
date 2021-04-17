@@ -155,7 +155,7 @@ func (c *SettingController) AboutSave() {
 
 	//about := c.GetString("about")
 	about_markdown_doc := c.GetString("about-markdown-doc")
-	about_html_code := c.GetString("about-markdown-doc")
+	about_html_code := c.GetString("about-html-code")
 
 	o := orm.NewOrm()
 	err := o.Begin()

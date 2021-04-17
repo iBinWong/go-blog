@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"go-blog/models/admin"
 	"time"
+
 )
 
 type BaseController struct {
@@ -21,10 +22,10 @@ func (ctl *BaseController) Prepare() {
 		ctl.User = user.(admin.User)
 		ctl.Data["LoginUser"] = user
 		//ctl.Data["LastLogin"] = ctl.GetSession("LastLogin")
-	}else{
+	} else {
 		//ctl.TplName = "admin/login.html"
 		//render.Redirect{401,'/',"1"}
-		ctl.Redirect("/admin/login",302)
+		//ctl.Redirect("/admin/login", 302)
 	}
 
 }

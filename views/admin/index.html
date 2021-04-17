@@ -78,14 +78,14 @@
                 <ul id="nav">
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont left-nav-li" lay-tips="用户管理">&#xe723;</i>
-                            <cite>用户管理</cite>
+                            <i class="iconfont left-nav-li" lay-tips="管理员管理">&#xe723;</i>
+                            <cite>管理员管理</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                         <ul class="sub-menu">
                             <li>
                                 <a onclick="xadmin.add_tab('站点用户','{{urlfor "admin.UserController.List"}}')">
                                     <i class="iconfont">&#xe6a7;</i>
-                                    <cite>站点用户</cite></a>
+                                    <cite>管理员管理</cite></a>
                             </li>
                         </ul>
                     </li>
@@ -104,6 +104,19 @@
                                 <a onclick="xadmin.add_tab('站点设置','{{urlfor "admin.SettingController.Add"}}')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>站点设置</cite></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <i class="iconfont left-nav-li" lay-tips="关于站点信息">&#xe723;</i>
+                            <cite>关于站点信息</cite>
+                            <i class="iconfont nav_right">&#xe697;</i></a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a onclick="xadmin.add_tab('关于站点信息','{{urlfor "admin.SettingController.About"}}')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>关于站点信息</cite></a>
                             </li>
                         </ul>
                     </li>

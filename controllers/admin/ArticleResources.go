@@ -65,7 +65,7 @@ func (c *ArticleResourcesController) GetArticle() {
 		//fmt.Println(subject)
 
 		detail, err := douban.GetDetail(urlPath)
-		fmt.Println(detail)
+		//fmt.Println(detail)
 		if err != nil {
 			response["msg"] = "新增失败！"
 			response["code"] = 500
@@ -89,6 +89,7 @@ func (c *ArticleResourcesController) GetArticle() {
 			User:     &admin.User{Id: 1},
 			Status:   1,
 			Other:    subjectString,
+			Tag:      detail["title"].(string),
 		}
 
 		id, err := o.Insert(&art)
@@ -113,9 +114,19 @@ func (c *ArticleResourcesController) GetArticle() {
 
 		count := 0
 		//var m []admin.Review
+		worker, err := utils.NewIdWorker(1)
 		for _, v := range review {
 
+			uid, err := worker.GetNextId()
+			if err != nil {
+				uid, err = worker.GetNextId()
+				if err != nil {
+					uid = time.Now().Unix()
+				}
+			}
+			uidstr := strconv.FormatInt(uid, 10)
 			customerId, _ := admin.AddCustomer(&admin.Customer{
+				Uid:      uidstr,
 				Username: v["username"],
 				Nickname: v["username"],
 				Image:    v["avatar"],
@@ -127,13 +138,13 @@ func (c *ArticleResourcesController) GetArticle() {
 			rev.Status = 1
 			rev.Customer = &admin.Customer{Id: int(customerId)}
 			rating, _ := strconv.Atoi(v["rating"])
-			fmt.Println("星星：", rating)
+			//fmt.Println("星星：", rating)
 			rev.Star = rating
 			like, _ := strconv.Atoi(v["like"])
 			rev.Like = like
 			loc, _ := time.LoadLocation("Local")
 
-			fmt.Println("时间：", v["commenttime"])
+			//fmt.Println("时间：", v["commenttime"])
 			the_time, _ := time.ParseInLocation("2006-01-02 15:04:05", v["commenttime"], loc)
 			rev.Created = the_time
 

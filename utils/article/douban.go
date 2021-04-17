@@ -2,6 +2,8 @@ package article
 
 import (
 	"encoding/json"
+	"fmt"
+	"go-blog/utils"
 	"strings"
 
 	"github.com/gocolly/colly"
@@ -29,7 +31,13 @@ func (douban Douban) Get(url string) map[string]interface{} {
 	})
 
 	c.OnHTML(".aside .subject-info", func(h *colly.HTMLElement) {
-		subject["src"] = h.ChildAttr("a img", "src")
+		imgsrc := h.ChildAttr("a img", "src")
+
+		img, err := utils.DownImage(imgsrc)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		subject["src"] = img
 		subject["title"] = h.ChildAttr("a img", "title")
 		subjectInfo := h.Text
 		// 去除空格
@@ -43,7 +51,7 @@ func (douban Douban) Get(url string) map[string]interface{} {
 		for _, v := range str {
 			if v != "" {
 				subject["subjectInfo"] += v + "\n"
-				info := strings.Split(subjectInfo, ":")
+				info := strings.Split(v, ":")
 
 				if info[0] == "作者" {
 					subject["author"] = info[1]

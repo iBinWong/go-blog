@@ -8,6 +8,7 @@ import (
 	"go-blog/models/admin"
 	"reflect"
 	"strconv"
+	"time"
 )
 
 // @Title 生成密码
@@ -127,21 +128,19 @@ func CategoryTreeR(allCate []*admin.Category, pid int, level int) []CateTree {
 	return arr
 }
 
-func SubString(str string,len int) string  {
+func SubString(str string, len int) string {
 	return string([]rune(str)[:len])
 }
 
-
-
 type MenuTree struct {
-	Id    int
+	Id     int
 	Title  string
-	Pid   int
-	Sort  int
-	Level int
-	Url   string
+	Pid    int
+	Sort   int
+	Level  int
+	Url    string
 	Target string
-	Son   []MenuTree
+	Son    []MenuTree
 }
 
 func MenuTreeR(allCate []interface{}, pid int, level int) []MenuTree {
@@ -185,3 +184,148 @@ func MenuData(allCate []interface{}, pid int, level int) []MenuTree {
 	}
 	return arr
 }
+
+type ReviewTree struct {
+	Id         int
+	Username   string
+	Image      string
+	Content    string
+	ReplyID    int
+	ReplyName  string
+	ReplyImage string
+	Created    time.Time
+	Level      int
+	Son        []ReviewTree
+}
+
+// [
+//     {
+//         "Id":1,
+//         "Username":"我是甜美的西红柿",
+//         "Content":"ssss",
+//         "ReplyID":0,
+//         "ReplyName":"",
+//         "Creared":"2020-12-05T00:11:26+08:00",
+//         "Level":0,
+//         "Son":[
+//             {
+//                 "Id":2,
+//                 "Username":"3乐",
+//                 "Content":"wefsf",
+//                 "ReplyID":1,
+//                 "ReplyName":"我是甜美的西红柿",
+//                 "Creared":"2020-12-05T00:11:50+08:00",
+//                 "Level":1,
+//                 "Son":null
+//             },
+//             {
+//                 "Id":3,
+//                 "Username":"小丑向月亮生气",
+//                 "Content":"qweqeqe",
+//                 "ReplyID":2,
+//                 "ReplyName":"3乐",
+//                 "Creared":"2020-12-05T10:28:38+08:00",
+//                 "Level":2,
+//                 "Son":null
+//             },
+//             {
+//                 "Id":4,
+//                 "Username":"柴犬妹妹",
+//                 "Content":"qewqeqeq",
+//                 "ReplyID":1,
+//                 "ReplyName":"我是甜美的西红柿",
+//                 "Creared":"2020-12-05T10:28:48+08:00",
+//                 "Level":1,
+//                 "Son":null
+//             }
+//         ]
+//     },
+//     {
+//         "Id":5,
+//         "Username":"小莉啊",
+//         "Content":"qewqeqeqqeqeqw",
+//         "ReplyID":0,
+//         "ReplyName":"",
+//         "Creared":"2020-12-05T10:28:58+08:00",
+//         "Level":0,
+//         "Son":null
+//     }
+// ]
+func ReviewTreeR(allCate []*admin.BbsReview, pid int, level int, self *admin.BbsReview) []ReviewTree {
+	var arr []ReviewTree
+	for _, v := range allCate {
+
+		if pid == v.ReplyId {
+			review := ReviewTree{}
+			review.Id = v.Id
+			review.ReplyID = v.ReplyId
+			review.Created = v.Created
+			review.Content = v.Content
+			review.Level = level
+			review.Username = v.Customer.Username
+			review.Image = v.Customer.Image
+			if pid != 0 {
+				review.ReplyName = self.Customer.Username
+				review.ReplyImage = self.Customer.Image
+			}
+			//arr = append(arr, review)
+			if pid == 0 {
+				sonReview := ReviewTreeR(allCate, v.Id, level+1, v)
+				review.Son = sonReview
+				arr = append(arr, review)
+			} else {
+				arr = append(arr, review)
+				//review = ReviewTreeR(allCate, v.Id, level+1, v)
+				arr = append(arr, ReviewTreeR(allCate, v.Id, level+1, v)...)
+				//review.Son = append(review.Son, sonReview...)
+			}
+			//arr = append(arr, review)
+			//arr = append(arr, review)
+		}
+	}
+	return arr
+}
+
+// type AdTree struct {
+// 	Gid        int
+// 	Username  string
+// 	Content   string
+// 	ReplyID   int
+// 	ReplyName string
+// 	Created   time.Time
+// 	Level     int
+// 	Son       []ReviewTree
+// }
+
+// func AdTreeR(allCate []*admin.Ad, pid int, level int, self *admin.Ad) []AdTree {
+// 	var arr []ReviewTree
+// 	for _, v := range allCate {
+
+// 		if pid == v.ReplyId {
+// 			review := ReviewTree{}
+// 			review.Id = v.Id
+// 			review.ReplyID = v.ReplyId
+// 			review.Created = v.Created
+// 			review.Content = v.Content
+// 			review.Level = level
+// 			review.Username = v.Customer.Username
+// 			if pid != 0 {
+// 				review.ReplyName = self.Customer.Username
+// 			}
+// 			//arr = append(arr, review)
+// 			if pid == 0 {
+// 				sonReview := ReviewTreeR(allCate, v.Id, level+1, v)
+// 				review.Son = sonReview
+// 				arr = append(arr, review)
+// 			} else {
+// 				arr = append(arr, review)
+// 				//review = ReviewTreeR(allCate, v.Id, level+1, v)
+// 				arr = append(arr, ReviewTreeR(allCate, v.Id, level+1, v)...)
+// 				//review.Son = append(review.Son, sonReview...)
+// 			}
+// 			//arr = append(arr, review)
+// 			//arr = append(arr, review)
+// 		}
+// 	}
+// 	return arr
+// }

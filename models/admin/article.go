@@ -38,6 +38,7 @@ type Other struct {
 	SubjectInfo string `json:"subjectInfo"`
 	Src         string `json:"src"`
 	Title       string `json:"title"`
+	Author      string `json:"author"`
 }
 
 func init() {

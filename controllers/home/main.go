@@ -23,9 +23,13 @@ func (c *MainController) Get() {
 
 	c.Data["index"] = "首页"
 
+	var topic []*admin.Topic
+	o.QueryTable(new(admin.Topic)).Filter("status", 1).OrderBy("-join").Limit(10).All(&topic)
+	c.Data["Topic"] = topic
+
 	if beego.AppConfig.String("view") == "nihongdengxia" {
 		((*ArticleController)(unsafe.Pointer(c))).List()
 	}
 
-	c.TplName = "home/" + beego.AppConfig.String("view") + "/index.html"
+	c.TplName = "home/" + c.Template + "/index.html"
 }

@@ -14,7 +14,7 @@ func NewMysqlDataBase() DataBase {
 	return &database
 }
 
-func (database *MysqlDataBase) GetStr() string{
+func (database *MysqlDataBase) GetStr() string {
 	conf, err := config.NewConfig("ini", "conf/app.conf")
 
 	if err != nil {
@@ -27,27 +27,22 @@ func (database *MysqlDataBase) GetStr() string{
 	dbPort := conf.String("db::dbPort")
 	dbName := conf.String("db::dbName")
 
-	return dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName+ "?charset=utf8&loc=Asia%2FShanghai"
+	return dbUser + ":" + dbPass + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName + "?charset=utf8&loc=Asia%2FShanghai&sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))"
 
 }
 
-func (database *MysqlDataBase) GetDriverName() string{
+func (database *MysqlDataBase) GetDriverName() string {
 	return "mysql"
 }
 
-func (database *MysqlDataBase) GetAliasName() string{
+func (database *MysqlDataBase) GetAliasName() string {
 	return "default"
 }
 
-func (database *MysqlDataBase) GetDriver() orm.DriverType{
+func (database *MysqlDataBase) GetDriver() orm.DriverType {
 	return orm.DRMySQL
 }
 
-
-func init(){
-	Register("mysql",NewMysqlDataBase)
+func init() {
+	Register("mysql", NewMysqlDataBase)
 }
-
-
-
-

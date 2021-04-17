@@ -1,6 +1,7 @@
 package home
 
 import (
+	"fmt"
 	"go-blog/models/admin"
 	"go-blog/utils"
 	"strings"
@@ -12,11 +13,30 @@ import (
 
 type BaseController struct {
 	beego.Controller
+	Template   string
+	IsLogin    bool
+	CustomerId int
+	Username   string
 }
 
 func (c *BaseController) Layout() {
 
 	o := orm.NewOrm()
+
+	category := new(admin.Category)
+
+	var categorys []*admin.Category
+	qs := o.QueryTable(category)
+	qs = qs.Filter("status", 1)
+
+	qs.OrderBy("-sort").All(&categorys)
+
+	tree := utils.CategoryTree(categorys, 0, 0)
+	// c.Data["json"] = tree
+	// c.ServeJSON()
+	// c.StopRun()
+
+	c.Data["Category"] = tree
 
 	// 月份排序
 	articleTime := new(admin.Article)
@@ -80,28 +100,130 @@ func (c *BaseController) Menu() {
 	c.StopRun()*/
 	c.Data["Menu"] = data
 
-	link, _ := admin.GetAllLink(query, fields, sortby, order, offset, limit)
-	c.Data["Link"] = link
-
 }
 
 func (c *BaseController) Prepare() {
+
+	fmt.Printf("前一个页面：%s\n", c.Ctx.Request.RequestURI)
+	// 登录信息
+	customer := c.GetSession("Customer")
+	//fmt.Println("登录信息：", customer)
+	if customer != nil {
+		//ctl.User = customer.(admin.Customer)
+		c.Data["Customer"] = customer.(admin.Customer)
+		//c.Data["CustomerId"] = customer.(admin.Customer).Id
+		c.Data["IsLogin"] = true
+		c.IsLogin = true
+		c.CustomerId = customer.(admin.Customer).Id
+		c.Username = customer.(admin.Customer).Username
+
+		// notice
+		noticeCount, _ := admin.GetNoticeCount(c.CustomerId)
+		c.Data["NoticeCount"] = noticeCount
+
+	} else {
+		c.Data["IsLogin"] = false
+		c.IsLogin = false
+	}
+
 	c.Data["bgClass"] = "bgColor"
 	c.Data["T"] = time.Now()
 
+	// 设置信息
 	o := orm.NewOrm()
 	var setting []*admin.Setting
 	o.QueryTable(new(admin.Setting)).All(&setting)
 
 	for _, v := range setting {
 		c.Data[v.Name] = v.Value
+
+		if v.Name == "template" {
+			c.Template = v.Value
+		}
 	}
 
+	// 站点统计信息
 	pv, _ := o.QueryTable(new(admin.Log)).Count()
 	uv, _ := o.QueryTable(new(admin.Log)).GroupBy("ip").Count()
 
 	c.Data["PV"] = pv
 	c.Data["UV"] = uv
+
+	// Ad
+	var fields []string
+	var sortby []string
+	var order []string
+	var query = make(map[string]string)
+	// Ad
+	l, err := admin.GetAllAd(query, fields, sortby, order, 0, 0)
+	if err != nil {
+		c.Abort(err.Error())
+	}
+	type Data struct {
+		Gid   string
+		Group string
+		Ad    []*admin.Ad
+	}
+
+	var data []*Data
+
+	for _, value := range l {
+		ad := value.(admin.Ad)
+		var flag bool = false
+		for _, v := range data {
+			if v.Gid == ad.Gid {
+				v.Ad = append(v.Ad, &ad)
+				flag = true
+				break
+			}
+		}
+
+		if flag == true {
+			continue
+		}
+
+		data = append(data, &Data{
+			Gid:   ad.Gid,
+			Group: ad.Group,
+			Ad:    []*admin.Ad{&ad},
+		})
+	}
+
+	for _, v := range data {
+		c.Data[v.Gid] = v.Ad
+	}
+
+	// music
+	type m struct {
+		Name   string `json:"name"`
+		Url    string `json:"url"`
+		Cover  string `json:"cover"`
+		Author string `json:"author"`
+	}
+	var music []m
+	var lists []orm.ParamsList
+	num, err := o.Raw("SELECT * FROM music order by RAND() limit 10").ValuesList(&lists)
+	//num, err := o.Raw("SELECT * FROM music order by id asc limit 10").ValuesList(&lists)
+	if err == nil && num > 0 {
+		for _, v := range lists {
+			music = append(music, m{
+				//Id:     v[0].(int),
+				Name:   v[1].(string),
+				Url:    v[2].(string),
+				Cover:  v[3].(string),
+				Author: v[4].(string),
+				//SongId: v[5].(string),
+			})
+		}
+	}
+
+	if len(music) == 0 {
+		c.Data["json"] = "[]"
+	} else {
+		c.Data["json"] = music
+	}
+	//mu, err := json.Marshal(music)
+	//c.Data["Music"] = string(mu)
 
 	c.Layout()
 	c.Menu()

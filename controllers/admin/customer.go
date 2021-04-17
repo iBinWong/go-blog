@@ -6,13 +6,11 @@ import (
 	models "go-blog/models/admin"
 	"strconv"
 	"strings"
-
-	"github.com/astaxie/beego"
 )
 
 // CustomerController operations for Customer
 type CustomerController struct {
-	beego.Controller
+	BaseController
 }
 
 // URLMapping ...

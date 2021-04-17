@@ -2,7 +2,6 @@ package home
 
 import (
 	"encoding/json"
-	"fmt"
 	"go-blog/models/admin"
 	"go-blog/utils"
 	"html/template"
@@ -27,7 +26,6 @@ func (c *ArticleController) List() {
 	o.QueryTable(new(admin.Setting)).Filter("name", "limit").One(&setting)
 	l := setting.Value
 	limit, err := strconv.ParseInt(l, 10, 64)
-	fmt.Println(limit)
 	if err != nil || limit == 0 {
 		li, _ := beego.AppConfig.Int64("limit")
 		limit = li
@@ -157,9 +155,13 @@ func (c *ArticleController) List() {
 		}
 	}
 
-	fmt.Println(&articles)
-
-	c.TplName = "home/" + beego.AppConfig.String("view") + "/list.html"
+	//fmt.Println(&articles)
+	switch c.Template {
+	case "nihongdengxia":
+		c.TplName = "home/" + c.Template + "/read.html"
+	default:
+		c.TplName = "home/" + c.Template + "/list.html"
+	}
 }
 
 // 详情
@@ -212,9 +214,9 @@ func (c *ArticleController) Detail() {
 	c.Data["Other"] = other
 
 	if viewType == "single" {
-		c.TplName = "home/" + beego.AppConfig.String("view") + "/doc.html"
+		c.TplName = "home/" + c.Template + "/doc.html"
 	} else {
-		c.TplName = "home/" + beego.AppConfig.String("view") + "/detail.html"
+		c.TplName = "home/" + c.Template + "/detail.html"
 	}
 	//c.TplName = "home/nihongdengxia/review.html"
 }
