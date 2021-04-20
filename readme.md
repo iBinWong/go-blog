@@ -49,6 +49,13 @@
 
 ### Install 
 
+#### 方式1 docker 安装（推荐）
+1. 先安装`docker`以及`docker-compose`
+2. 把根目录下的`docker-compose.yml`赋值到你需要运行的`Go Blog`项目的目录下，执行`docker-compose up -d`.（会报找不到数据库的错误，忽略，在步骤3导入数据后就正常了）
+3. 登录`docker`启动的`mysql`，新建数据库`go-blog`,导入`go-blog/database/blog-mysql.sql`数据。
+4. 访问url`http://127.0.0.0:8080`,后台url`http://127.0.0.0:8080/admin`,默认账户:`user`,密码:`123456`
+
+#### 方式二 源码安装
 1. 把Go Blog项目拉到本地
 
 ```
