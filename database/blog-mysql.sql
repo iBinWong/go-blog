@@ -18,7 +18,7 @@
 --
 -- Table structure for table `ad`
 --
-user go-blog;
+use go-blog;
 
 DROP TABLE IF EXISTS `ad`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
