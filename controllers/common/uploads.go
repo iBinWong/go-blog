@@ -44,7 +44,7 @@ func (c *UploadsController) Uploads() {
 		} else {
 			response["success"] = 1
 			response["message"] = "Success."
-			response["url"] = path
+			response["url"] = "/" + path
 		}
 	}
 
