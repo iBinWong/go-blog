@@ -25,7 +25,7 @@ func (ctl *BaseController) Prepare() {
 	} else {
 		//ctl.TplName = "admin/login.html"
 		//render.Redirect{401,'/',"1"}
-		//ctl.Redirect("/admin/login", 302)
+		ctl.Redirect("/admin/login", 302)
 	}
 
 }
