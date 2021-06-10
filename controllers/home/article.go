@@ -289,6 +289,7 @@ func (c *ArticleController) Review() {
 		Site:      template.HTMLEscapeString(site),
 		ArticleId: aid,
 		Status:    1,
+		Customer:&admin.Customer{Id: 1},
 	}
 
 	response := make(map[string]interface{})
