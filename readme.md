@@ -9,7 +9,7 @@
 
 [查看](http://go-blog.cn "查看")
 
-> 前台演示站点(社区) http://nihongdengxia.com/ 
+> 前台演示站点(社区) https://nihongdengxia.com/ 
 > 前台演示站点(博客) http://47.106.128.78:8080/
 
 
