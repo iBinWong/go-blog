@@ -7,12 +7,10 @@
 
 ### 包含功能
 
-[查看](http://go-blog.cn "查看")
+![image](https://user-images.githubusercontent.com/28426364/128692732-d92d8de8-8174-4447-9be9-57ba14a8de2a.png)
 
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 
-
-![Go Blog 官网](/view.png "Go Blog 官网")
 
 ### 系统功能
 ![系统功能](/系统功能.png "系统功能")
