@@ -1,4 +1,6 @@
-## Go Blog
+#### Go Blog 
+
+一个基于Beego开发的社交商城博客系统
 
 [![Go Blog Stargazers over time](https://starchart.cc/1920853199/go-blog.svg)](https://starchart.cc/1920853199/go-blog)
 
