@@ -3,7 +3,14 @@
 [![GitHub forks](https://img.shields.io/github/forks/1920853199/go-blog)](https://github.com/1920853199/go-blog/network)
 [![GitHub license](https://img.shields.io/github/license/1920853199/go-blog)](https://github.com/1920853199/go-blog/master/LICENSE)
 
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/1920853199/go-blog.svg)](https://starchart.cc/1920853199/go-blog)
+
+
 一个基于Beego的，能快速创建个人博客，cms 的系统
+
 
 ### 包含功能
 
