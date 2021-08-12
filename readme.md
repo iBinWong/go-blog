@@ -11,9 +11,8 @@
 一个基于Beego的，能快速创建个人博客，cms 的系统
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 
-### 包含功能
-
 ![image](https://user-images.githubusercontent.com/28426364/128692732-d92d8de8-8174-4447-9be9-57ba14a8de2a.png)
+![image](https://user-images.githubusercontent.com/28426364/129147083-29c15731-f90e-4146-8bcb-aaa42c92bab3.png)
 
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 
@@ -49,11 +48,6 @@ runmode = dev
 EnableAdmin = false
 sessionon = true
 url = 127.0.0.1:8088
-view = default
-
-limit = 10
-title = Go Blog
-autograph = 如今的我，谈不上幸福，也谈不上不幸。
 
 [db]
 dbType = mysql
@@ -66,12 +60,6 @@ dbName = blog
 [redis]
 rHost = 127.0.0.1
 rPort = 6379
-
-[wechat]
-AppID = xxxxxxx
-AppSecret = xxxxxxx
-Token = xxxxxxx
-EncodingAESKey = xxxxxxx
 
 
 ```
