@@ -8,7 +8,6 @@
 [![GitHub forks](https://img.shields.io/github/forks/1920853199/go-blog)](https://github.com/1920853199/go-blog/network)
 [![GitHub license](https://img.shields.io/github/license/1920853199/go-blog)](https://github.com/1920853199/go-blog/master/LICENSE)
 
-一个基于Beego的，能快速创建个人博客，cms 的系统
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 
 ![image](https://user-images.githubusercontent.com/28426364/128692732-d92d8de8-8174-4447-9be9-57ba14a8de2a.png)
