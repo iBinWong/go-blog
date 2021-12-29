@@ -2,3 +2,4 @@
 *.scss linguist-vendored
 *.js linguist-vendored
 *.vba linguist-vendored
+*.html linguist-vendored
