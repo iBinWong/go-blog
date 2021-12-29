@@ -1,1 +1,4 @@
-*.js linguist-language=Go
+*.css linguist-vendored
+*.scss linguist-vendored
+*.js linguist-vendored
+*.vba linguist-vendored
