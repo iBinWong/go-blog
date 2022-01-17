@@ -1,4 +1,4 @@
-#### Go Blog 
+### Go Blog 
 
 一个基于Beego开发的社交商城博客系统
 
@@ -8,6 +8,16 @@
 [![GitHub forks](https://img.shields.io/github/forks/1920853199/go-blog)](https://github.com/1920853199/go-blog/network)
 [![GitHub license](https://img.shields.io/github/license/1920853199/go-blog)](https://github.com/1920853199/go-blog/master/LICENSE)
 
+### 使用说明（非常重要）
+1. go-blog 最新版本为 v2.0.0
+2. 此仓库代码并非最新代码，但是tag中的二进制文件是最新版本
+3. 运行tag中的代码步骤：
+    1. 下载tag的releases文件包（只有linux跟mac版本）并解压
+    2. 创建一个配置文件，如 app.conf.example，配置好环境变量 BEEGO_CONFIG_PATH = '配置文件路径' 
+    3. 执行./go-bbs --install 安装数据库
+    4. 最后执行 ./go-bbs 访问对应端口即可
+
+
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 > 陈立个人博客 http://clblog.club/ 
 > Goooooooogle 搜索摸鱼 http://gooooooooogle.cn/ 
@@ -16,7 +26,6 @@
 ![image](https://user-images.githubusercontent.com/28426364/129147083-29c15731-f90e-4146-8bcb-aaa42c92bab3.png)
 
 > 前台演示站点(社区) https://nihongdengxia.com/ 
-
 
 ### 系统功能
 ![系统功能](/系统功能.png "系统功能")
