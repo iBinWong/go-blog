@@ -8,7 +8,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/1920853199/go-blog)](https://github.com/1920853199/go-blog/network)
 [![GitHub license](https://img.shields.io/github/license/1920853199/go-blog)](https://github.com/1920853199/go-blog/master/LICENSE)
 
-### Go bbs 2020 Roadmap (https://nihongdengxia.com/detail/672.html)
+### Go bbs 2022 Roadmap (https://nihongdengxia.com/detail/672.html)
 
 ### 使用说明（非常重要）
 1. go-blog 最新版本为 v2.0.0
