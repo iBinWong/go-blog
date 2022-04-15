@@ -27,6 +27,7 @@
 ![image](https://user-images.githubusercontent.com/28426364/128692732-d92d8de8-8174-4447-9be9-57ba14a8de2a.png)
 ![image](https://user-images.githubusercontent.com/28426364/129147083-29c15731-f90e-4146-8bcb-aaa42c92bab3.png)
 
+> go-bbs 官网 http://go-bbs.com
 > 前台演示站点(社区) https://nihongdengxia.com/ 
 
 ### 系统功能
