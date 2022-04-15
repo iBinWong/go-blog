@@ -8,6 +8,8 @@
 [![GitHub forks](https://img.shields.io/github/forks/1920853199/go-blog)](https://github.com/1920853199/go-blog/network)
 [![GitHub license](https://img.shields.io/github/license/1920853199/go-blog)](https://github.com/1920853199/go-blog/master/LICENSE)
 
+> go-bbs 官网 http://go-bbs.com
+
 ### Go bbs 2022 Roadmap (https://nihongdengxia.com/detail/672.html)
 
 ### 使用说明（非常重要）
