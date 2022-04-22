@@ -1,5 +1,4 @@
 # 本仓库已经迁移到 https://github.com/gobbscom/go-bbs 
-# 感谢大家的关注（新仓库代码是最新的，感谢大家的关注以及star）
 
 ### Go Blog 
 
