@@ -1,4 +1,4 @@
-# 本仓库已经迁移到 https://github.com/gobbscom/go-bbs 
+# 本仓库已经废弃，新仓库已经迁移到 https://github.com/gobbscom/go-bbs 
 
 ### Go Blog 
 
